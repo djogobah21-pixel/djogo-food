@@ -3,106 +3,193 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maquis Le Rendez-vous - DJOGO FOOD</title>
+  <title>DJOGO FOOD</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial; }
-    body { background: #f8f8f8; padding-bottom: 80px; }
-  .header { background: linear-gradient(135deg, #FF6B00, #FF8533); color: white; padding: 25px 15px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-  .header h1 { font-size: 24px; margin-bottom: 5px; }
-  .header p { opacity: 0.9; font-size: 14px; }
-  .menu { padding: 15px; max-width: 600px; margin: auto; }
-  .menu-title { font-size: 20px; margin: 20px 0 15px 0; color: #333; }
-  .plat { background: white; border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-  .plat-top { display: flex; justify-content: space-between; align-items: start; }
-  .plat-info h3 { font-size: 16px; color: #333; margin-bottom: 5px; }
-  .plat-info p { font-size: 13px; color: #777; margin-bottom: 8px; }
-  .prix { color: #FF6B00; font-weight: bold; font-size: 18px; }
-  .btn { background: #FF6B00; color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-  .btn:active { transform: scale(0.95); }
-  .panier-btn { position: fixed; bottom: 0; left: 0; width: 100%; background: #25D366; color: white; text-align: center; padding: 18px; font-size: 18px; font-weight: bold; border: none; cursor: pointer; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+    body { background: #f5f5f5; padding-bottom: 80px; }
+  .header { background: #1A1A1A; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
+ .logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: bold; }
+ .profil { background: #FF6B00; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; }
+.banner { background: #FF6B00; color: white; margin: 15px; padding: 20px; border-radius: 15px; }
+.banner h2 { font-size: 24px; margin-bottom: 8px; }
+.section-title { padding: 0 15px; font-size: 20px; margin: 20px 0 15px 0; font-weight: bold; }
+.services { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px; }
+.service-card { background: white; border-radius: 15px; padding: 20px 15px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; transition: 0.2s; }
+.service-card:active { transform: scale(0.95); }
+.service-card.orange { background: #FF6B00; color: white; }
+.service-icon { font-size: 40px; margin-bottom: 10px; }
+.service-title { font-weight: bold; font-size: 14px; margin-bottom: 5px; }
+.service-desc { font-size: 11px; opacity: 0.8; }
+.game { background: #E8E8E8; margin: 15px; padding: 15px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; }
+.game-btn { background: #FF6B00; color: white; padding: 8px 15px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; }
+.navbar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 10px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+.nav-item { text-align: center; color: #999; font-size: 11px; cursor: pointer; }
+.nav-item.active { color: #FF6B00; font-weight: bold; }
+.nav-icon { font-size: 24px; display: block; margin-bottom: 3px; }
+.page { display: none; }
+.page.active { display: block; }
+.plat { background: white; margin: 10px 15px; padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; }
+.btn-ajouter { background: #FF6B00; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+.panier-btn { position: fixed; bottom: 80px; width: 90%; left: 5%; background: #25D366; color: white; padding: 15px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+.back-btn { background: none; border: none; color: white; font-size: 20px; cursor: pointer; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1>Maquis Le Rendez-vous</h1>
-    <p>Table 5 - DJOGO FOOD</p>
+
+  <!-- PAGE ACCUEIL -->
+  <div id="accueil" class="page active">
+    <div class="header">
+      <div class="logo">🍴 DJOGO FOOD</div>
+      <div class="profil" onclick="showPage('profil')">👤</div>
+    </div>
+
+    <div class="banner">
+      <h2>DJOGO FOOD</h2>
+      <p><b>Commande + Paiement + Jeu + Livraison Yango</b><br>
+      Bienvenue! Découvrez nos services rapides</p>
+    </div>
+
+    <h3 class="section-title">Nos services</h3>
+    <div class="services">
+      <div class="service-card orange" onclick="genererQR()">
+        <div class="service-icon">📱</div>
+        <div class="service-title">1. QR Code Menu</div>
+        <div class="service-desc">Scannez & consultez le menu</div>
+      </div>
+      <div class="service-card" onclick="showPage('menu')">
+        <div class="service-icon">🍲</div>
+        <div class="service-title">2. Order Food</div>
+        <div class="service-desc">Parcourez et commandez vos plats</div>
+      </div>
+      <div class="service-card" onclick="showPage('paiement')">
+        <div class="service-icon">💳</div>
+        <div class="service-title">3. Pay WAVE, OM, MoMo</div>
+        <div class="service-desc">Paiement sécurisé & rapide</div>
+      </div>
+      <div class="service-card orange" onclick="commanderYango()">
+        <div class="service-icon">🚚</div>
+        <div class="service-title">4. Order Yango Delivery</div>
+        <div class="service-desc">Livraison rapide via Yango</div>
+      </div>
+    </div>
+
+    <div class="game">
+      <div><b>Game While Waiting</b><br><small>Gagnez des réductions!</small></div>
+      <button class="game-btn" onclick="showPage('jeu')">Jouer ></button>
+    </div>
   </div>
 
-  <div class="menu">
-    <h2 class="menu-title">Notre Menu</h2>
+  <!-- PAGE MENU -->
+  <div id="menu" class="page">
+    <div class="header">
+      <button class="back-btn" onclick="showPage('accueil')">←</button>
+      <div class="logo">🍴 Menu</div>
+      <div></div>
+    </div>
     <div id="liste-plats"></div>
+    <button class="panier-btn" onclick="commanderWhatsApp()">Voir Panier - <span id="total">0</span> FCFA</button>
   </div>
 
-  <button class="panier-btn" onclick="commanderWhatsApp()">Voir Panier - <span id="total">0</span> FCFA</button>
+  <!-- PAGE PAIEMENT -->
+  <div id="paiement" class="page">
+    <div class="header">
+      <button class="back-btn" onclick="showPage('accueil')">←</button>
+      <div class="logo">💳 Paiement</div>
+      <div></div>
+    </div>
+    <div style="padding:20px;">
+      <h3>Choisissez votre moyen</h3>
+      <button style="width:100%; padding:15px; margin:10px 0; background:white; border:2px solid #FF6B00; border-radius:10px;" onclick="payer('WAVE')">Payer avec WAVE</button>
+      <button style="width:100%; padding:15px; margin:10px 0; background:white; border:2px solid #FF6B00; border-radius:10px;" onclick="payer('Orange Money')">Payer avec Orange Money</button>
+      <button style="width:100%; padding:15px; margin:10px 0; background:white; border:2px solid #FF6B00; border-radius:10px;" onclick="payer('Mo')">Payer avec MoMo</button>
+    </div>
+  </div>
+
+  <!-- PAGE JEU -->
+  <div id="jeu" class="page">
+    <div class="header">
+      <button class="back-btn" onclick="showPage('accueil')">←</button>
+      <div class="logo">🎮 Jeu</div>
+      <div></div>
+    </div>
+    <div style="padding:20px; text-align:center;">
+      <h3>Quiz DJOGO FOOD</h3>
+      <p>Quel est le plat le plus commandé?</p>
+      <button onclick="alert('Bonne réponse! -10%')" style="margin:5px; padding:10px; width:100%;">Poulet Braisé</button>
+      <button onclick="alert('Essaie encore')" style="margin:5px; padding:10px; width:100%;">Garba</button>
+    </div>
+  </div>
+
+  <!-- PAGE PROFIL -->
+  <div id="profil" class="page">
+    <div class="header">
+      <button class="back-btn" onclick="showPage('accueil')">←</button>
+      <div class="logo">👤 Profil</div>
+      <div></div>
+    </div>
+    <div style="padding:20px; text-align:center;">
+      <h3>Mon Compte</h3>
+      <p>Nom: Client DJOGO</p>
+      <button onclick="alert('Déconnexion')" style="margin-top:20px; padding:10px 20px; background:red; color:white; border:none; border-radius:5px;">Se déconnecter</button>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="nav-item active" onclick="showPage('accueil')"><span class="nav-icon">🏠</span>Accueil</div>
+    <div class="nav-item" onclick="showPage('menu')"><span class="nav-icon">📋</span>Commandes</div>
+    <div class="nav-item" onclick="showPage('menu')"><span class="nav-icon">🛒</span>Panier</div>
+    <div class="nav-item" onclick="showPage('profil')"><span class="nav-icon">👤</span>Profil</div>
+  </div>
 
 <script>
   let panier = [];
-
-  // TU PEUX MODIFIER TES PLATS ICI
   const menu = [
-    {nom: "Poulet Braisé + Alloco", desc: "Demi poulet avec alloco et sauce pimentée", prix: 4500},
-    {nom: "Attiéké Poisson Braisé", desc: "Poisson + Attiéké + Alloco + Piment", prix: 3500},
+    {nom: "Poulet Braisé + Alloco", desc: "Demi poulet avec alloco", prix: 4500},
+    {nom: "Attiéké Poisson Braisé", desc: "Poisson + Attiéké + Alloco", prix: 3500},
     {nom: "Garba Spécial", desc: "Garba + Poisson + Gnamakoudji", prix: 2000},
     {nom: "Kedjenou Poulet", desc: "Poulet mijoté aux légumes", prix: 5000},
     {nom: "Tchep Poulet", desc: "Riz + Poulet + Légumes", prix: 3000},
     {nom: "Jus Bissap 1.5L", desc: "Bien glacé", prix: 1500}
   ];
 
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    if(id === 'menu') afficherMenu();
+  }
+
   function afficherMenu() {
-    let html = "";
+    let html = '<h3 class="section-title">Notre Menu</h3>';
     menu.forEach((plat, i) => {
-      html += `
-      <div class="plat">
-        <div class="plat-top">
-          <div class="plat-info">
-            <h3>${plat.nom}</h3>
-            <p>${plat.desc}</p>
-            <p class="prix">${plat.prix.toLocaleString()} FCFA</p>
-          </div>
-          <button class="btn" onclick="ajouter(${i})">Ajouter</button>
-        </div>
+      html += `<div class="plat">
+        <div><h3>${plat.nom}</h3><p>${plat.desc}</p><p style="color:#FF6B00; font-weight:bold;">${plat.prix.toLocaleString()} FCFA</p></div>
+        <button class="btn-ajouter" onclick="ajouter(${i})">Ajouter</button>
       </div>`;
     });
     document.getElementById("liste-plats").innerHTML = html;
   }
 
-  function ajouter(index) {
-    let plat = menu[index];
-    panier.push(plat);
-    mettreAJourTotal();
-    alert(plat.nom + " ajouté au panier ✅");
-  }
-
-  function mettreAJourTotal() {
-    let total = panier.reduce((somme, plat) => somme + plat.prix, 0);
+  function ajouter(i) {
+    panier.push(menu[i]);
+    let total = panier.reduce((a,b) => a+b.prix, 0);
     document.getElementById("total").innerText = total.toLocaleString();
+    alert(menu[i].nom + " ajouté ✅");
   }
 
   function commanderWhatsApp() {
-    if(panier.length === 0) {
-      alert("Ton panier est vide");
-      return;
-    }
-
-    let message = "🔥 *NOUVELLE COMMANDE DJOGO FOOD* 🔥%0A%0A";
-    message += "*Table 5*%0A%0A";
-
-    panier.forEach((plat, i) => {
-      message += `${i+1}. ${plat.nom} - ${plat.prix.toLocaleString()} FCFA%0A`;
-    });
-
-    let total = panier.reduce((somme, plat) => somme + plat.prix, 0);
-    message += `%0A*TOTAL: ${total.toLocaleString()} FCFA*%0A%0A`;
-    message += "Merci!";
-
-    // ⚠️⚠️ METS TON NUMERO WHATSAPP ICI AVEC L'INDICATIF 225
-    let monNumero = "2250700000";
-
-    window.open(`https://wa.me/${monNumero}?text=${message}`, '_blank');
+    if(panier.length === 0) return alert("Panier vide");
+    let msg = "🔥 COMMANDE DJOGO FOOD 🔥%0A";
+    panier.forEach(p => msg += `- ${p.nom} : ${p.prix} FCFA%0A`);
+    let total = panier.reduce((a,b) => a+b.prix, 0);
+    msg += `TOTAL: ${total} FCFA`;
+    window.open(`https://wa.me/2250700000?text=${msg}`); // METS TON NUMERO ICI
   }
 
-  // LANCEMENT
-  afficherMenu();
+  function genererQR() { alert("Ton lien QR: djogo-food.vercel.app/menu"); }
+  function commanderYango() { window.open("https://yango.com"); }
+  function payer(methode) { alert("Paiement " + methode + " de " + document.getElementById("total").innerText + " FCFA lancé"); }
 </script>
 </body>
-</html>
+      </html>
