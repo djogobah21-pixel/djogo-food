@@ -5,14 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Maquis Le Rendez-vous - DJOGO FOOD</title>
   <style>
-    body { font-family: Arial; margin: 0; background: #f5f5f5; }
-    .header { background: #FF6B00; color: white; padding: 20px; text-align: center; }
-    .menu { padding: 15px; }
-    .plat { background: white; border-radius: 10px; padding: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-    .plat h3 { margin: 0; }
-    .prix { color: #FF6B00; font-weight: bold; font-size: 18px; }
-    .btn { background: #FF6B00; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
-    .panier { position: fixed; bottom: 0; width: 100%; background: #25D366; color: white; text-align: center; padding: 15px; font-size: 18px; border: none; }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial; }
+    body { background: #f8f8f8; padding-bottom: 80px; }
+  .header { background: linear-gradient(135deg, #FF6B00, #FF8533); color: white; padding: 25px 15px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+  .header h1 { font-size: 24px; margin-bottom: 5px; }
+  .header p { opacity: 0.9; font-size: 14px; }
+  .menu { padding: 15px; max-width: 600px; margin: auto; }
+  .menu-title { font-size: 20px; margin: 20px 0 15px 0; color: #333; }
+  .plat { background: white; border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .plat-top { display: flex; justify-content: space-between; align-items: start; }
+  .plat-info h3 { font-size: 16px; color: #333; margin-bottom: 5px; }
+  .plat-info p { font-size: 13px; color: #777; margin-bottom: 8px; }
+  .prix { color: #FF6B00; font-weight: bold; font-size: 18px; }
+  .btn { background: #FF6B00; color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+  .btn:active { transform: scale(0.95); }
+  .panier-btn { position: fixed; bottom: 0; left: 0; width: 100%; background: #25D366; color: white; text-align: center; padding: 18px; font-size: 18px; font-weight: bold; border: none; cursor: pointer; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
   </style>
 </head>
 <body>
@@ -21,23 +28,81 @@
     <p>Table 5 - DJOGO FOOD</p>
   </div>
 
-  <div class="menu" id="menu"></div>
+  <div class="menu">
+    <h2 class="menu-title">Notre Menu</h2>
+    <div id="liste-plats"></div>
+  </div>
 
-  <button class="panier" onclick="commander()">Voir Panier - <span id="total">0</span> FCFA</button>
+  <button class="panier-btn" onclick="commanderWhatsApp()">Voir Panier - <span id="total">0</span> FCFA</button>
 
 <script>
   let panier = [];
+
+  // TU PEUX MODIFIER TES PLATS ICI
   const menu = [
-    {nom: "Poulet Braisé + Alloco", desc: "Avec sauce pimentée", prix: 4500},
-    {nom: "Attiéké Poisson Braisé", desc: "Avec alloco et piment", prix: 3500},
-    {nom: "Garba Spécial", desc: "Avec gnamakoudji", prix: 2000}
+    {nom: "Poulet Braisé + Alloco", desc: "Demi poulet avec alloco et sauce pimentée", prix: 4500},
+    {nom: "Attiéké Poisson Braisé", desc: "Poisson + Attiéké + Alloco + Piment", prix: 3500},
+    {nom: "Garba Spécial", desc: "Garba + Poisson + Gnamakoudji", prix: 2000},
+    {nom: "Kedjenou Poulet", desc: "Poulet mijoté aux légumes", prix: 5000},
+    {nom: "Tchep Poulet", desc: "Riz + Poulet + Légumes", prix: 3000},
+    {nom: "Jus Bissap 1.5L", desc: "Bien glacé", prix: 1500}
   ];
 
   function afficherMenu() {
-    let html = "<h2>Notre Menu</h2>";
+    let html = "";
     menu.forEach((plat, i) => {
       html += `
       <div class="plat">
-        <div>
-          <h3>${plat.nom}</h3>
-          <p
+        <div class="plat-top">
+          <div class="plat-info">
+            <h3>${plat.nom}</h3>
+            <p>${plat.desc}</p>
+            <p class="prix">${plat.prix.toLocaleString()} FCFA</p>
+          </div>
+          <button class="btn" onclick="ajouter(${i})">Ajouter</button>
+        </div>
+      </div>`;
+    });
+    document.getElementById("liste-plats").innerHTML = html;
+  }
+
+  function ajouter(index) {
+    let plat = menu[index];
+    panier.push(plat);
+    mettreAJourTotal();
+    alert(plat.nom + " ajouté au panier ✅");
+  }
+
+  function mettreAJourTotal() {
+    let total = panier.reduce((somme, plat) => somme + plat.prix, 0);
+    document.getElementById("total").innerText = total.toLocaleString();
+  }
+
+  function commanderWhatsApp() {
+    if(panier.length === 0) {
+      alert("Ton panier est vide");
+      return;
+    }
+
+    let message = "🔥 *NOUVELLE COMMANDE DJOGO FOOD* 🔥%0A%0A";
+    message += "*Table 5*%0A%0A";
+
+    panier.forEach((plat, i) => {
+      message += `${i+1}. ${plat.nom} - ${plat.prix.toLocaleString()} FCFA%0A`;
+    });
+
+    let total = panier.reduce((somme, plat) => somme + plat.prix, 0);
+    message += `%0A*TOTAL: ${total.toLocaleString()} FCFA*%0A%0A`;
+    message += "Merci!";
+
+    // ⚠️⚠️ METS TON NUMERO WHATSAPP ICI AVEC L'INDICATIF 225
+    let monNumero = "2250700000";
+
+    window.open(`https://wa.me/${monNumero}?text=${message}`, '_blank');
+  }
+
+  // LANCEMENT
+  afficherMenu();
+</script>
+</body>
+</html>
