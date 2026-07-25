@@ -3,26 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DJOGO FOOD</title>
+  <title>DJOGO FOOD PRO</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial; }
     body { background: #f5f5f5; padding-bottom: 80px; }
- .header { background: #1A1A1A; color: white; padding: 15px; text-align: center; position: sticky; top: 0; }
- .table-info { background: #FF6B00; color: white; padding: 10px; text-align: center; font-weight: bold; font-size: 18px; }
- .banner { background: #FF6B00; color: white; margin: 15px; padding: 20px; border-radius: 15px; }
- .section-title { padding: 0 15px; font-size: 20px; margin: 20px 0 15px 0; font-weight: bold; }
- .services { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px; }
- .service-card { background: white; border-radius: 15px; padding: 20px 15px; text-align: center; cursor: pointer; }
- .service-card.orange { background: #FF6B00; color: white; }
- .navbar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 10px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
- .nav-item { text-align: center; color: #999; font-size: 11px; cursor: pointer; }
- .nav-item.active { color: #FF6B00; font-weight: bold; }
- .page { display: none; }
- .page.active { display: block; }
- .plat { background: white; margin: 10px 15px; padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; }
- .btn-ajouter { background: #FF6B00; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; }
- .btn-commander { position: fixed; bottom: 80px; width: 90%; left: 5%; background: #25D366; color: white; padding: 15px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; }
- .commande-card { background: white; margin: 10px 15px; padding: 15px; border-radius: 10px; border-left: 5px solid #FF6B00; }
+.header { background: #1A1A1A; color: white; padding: 15px; text-align: center; position: sticky; top: 0; }
+.table-info { background: #FF6B00; color: white; padding: 10px; text-align: center; font-weight: bold; }
+.section-title { padding: 15px; font-size: 18px; font-weight: bold; }
+.services { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px; }
+.service-card { background: white; border-radius: 15px; padding: 20px 15px; text-align: center; cursor: pointer; }
+.navbar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 10px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+.nav-item { text-align: center; color: #999; font-size: 10px; cursor: pointer; }
+.nav-item.active { color: #FF6B00; font-weight: bold; }
+.page { display: none; }
+.page.active { display: block; }
+.plat,.card { background: white; margin: 10px 15px; padding: 15px; border-radius: 10px; }
+.btn { background: #FF6B00; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
+.btn-green { background: #25D366; }
+.btn-red { background: red; }
+ input, select { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ddd; border-radius: 5px; }
+.recu { background: white; margin: 15px; padding: 20px; border: 1px dashed #000; }
+ table { width: 100%; font-size: 12px; }
   </style>
 </head>
 <body>
@@ -31,11 +32,10 @@
   <div id="accueil" class="page active">
     <div class="header"><h2>🍴 DJOGO FOOD</h2></div>
     <div id="table-badge"></div>
-    <div class="banner"><h2>Bienvenue</h2><p>Commandez directement depuis votre table</p></div>
-    <h3 class="section-title">Nos services</h3>
+    <div class="card"><h2>Bienvenue</h2><p>Commandez depuis votre table</p></div>
     <div class="services">
-      <div class="service-card" onclick="showPage('menu')"><div style="font-size:40px;">🍲</div><div>Order Food</div></div>
-      <div class="service-card orange" onclick="showPage('mes-commandes')"><div style="font-size:40px;">📋</div><div>Mes Commandes</div></div>
+      <div class="service-card" onclick="showPage('menu')"><div style="font-size:40px;">🍲</div><div>Menu</div></div>
+      <div class="service-card" onclick="showPage('mes-commandes')"><div style="font-size:40px;">📋</div><div>Mes Commandes</div></div>
     </div>
   </div>
 
@@ -47,50 +47,82 @@
 
   <!-- PAGE PANIER -->
   <div id="panier" class="page">
-    <div class="header"><button onclick="showPage('menu')" style="background:none; border:none; color:white; font-size:20px; position:absolute; left:15px;">←</button><h2>Mon Panier</h2></div>
+    <div class="header"><button onclick="showPage('menu')" style="background:none; border:none; color:white; font-size:20px; position:absolute; left:15px;">←</button><h2>Panier</h2></div>
     <div id="liste-panier"></div>
-    <button class="btn-commander" onclick="envoyerCommande()">Envoyer la Commande</button>
+    <div class="card">
+      <input id="reduc" type="number" placeholder="Réduction en FCFA">
+      <button class="btn btn-green" onclick="envoyerCommande()">Envoyer la Commande</button>
+    </div>
   </div>
 
-  <!-- PAGE MES COMMANDES - POUR LE CLIENT -->
-  <div id="mes-commandes" class="page">
-    <div class="header"><button onclick="showPage('accueil')" style="background:none; border:none; color:white; font-size:20px; position:absolute; left:15px;">←</button><h2>Mes Commandes</h2></div>
-    <div id="liste-commandes-client"></div>
+  <!-- PAGE RECUS CLIENT -->
+  <div id="recu" class="page">
+    <div class="header"><button onclick="showPage('mes-commandes')" style="background:none; border:none; color:white; font-size:20px; position:absolute; left:15px;">←</button><h2>Reçu</h2></div>
+    <div id="contenu-recu"></div>
+    <button class="btn" onclick="window.print()">Imprimer le Reçu</button>
   </div>
 
-  <!-- PAGE GERANT - BACKOFFICE -->
+  <!-- PAGE GERANT -->
   <div id="gerant" class="page">
     <div class="header"><h2>📊 Backoffice Gérant</h2></div>
-    <h3 class="section-title">Nouvelles Commandes</h3>
-    <div id="liste-commandes-gerant"></div>
+    <div class="services">
+      <div class="service-card" onclick="showPage('commandes')"><div style="font-size:30px;">📋</div><div>Commandes</div></div>
+      <div class="service-card" onclick="showPage('menu-gerant')"><div style="font-size:30px;">🍲</div><div>Gérer Menu</div></div>
+      <div class="service-card" onclick="showPage('employes')"><div style="font-size:30px;">👨‍🍳</div><div>Employés</div></div>
+      <div class="service-card" onclick="showPage('ventes')"><div style="font-size:30px;">💰</div><div>Ventes</div></div>
+    </div>
+  </div>
+
+  <!-- PAGE GERER MENU -->
+  <div id="menu-gerant" class="page">
+    <div class="header"><button onclick="showPage('gerant')" style="background:none; border:none; color:white; font-size:20px; position:absolute; left:15px;">←</button><h2>Gérer Menu</h2></div>
+    <div class="card">
+      <input id="nom-plat" placeholder="Nom du plat">
+      <input id="prix-plat" type="number" placeholder="Prix FCFA">
+      <button class="btn" onclick="ajouterPlat()">Ajouter Plat</button>
+    </div>
+    <div id="liste-menu-gerant"></div>
+  </div>
+
+  <!-- PAGE EMPLOYES -->
+  <div id="employes" class="page">
+    <div class="header"><button onclick="showPage('gerant')" style="background:none; border:none; color:white; font-size:20px; position:absolute; left:15px;">←</button><h2>Employés</h2></div>
+    <div class="card">
+      <input id="nom-emp" placeholder="Nom Employé">
+      <input id="heure-debut" type="time">
+      <input id="heure-fin" type="time">
+      <button class="btn" onclick="pointer()">Pointer</button>
+    </div>
+    <div id="liste-employes"></div>
+  </div>
+
+  <!-- PAGE VENTES -->
+  <div id="ventes" class="page">
+    <div class="header"><button onclick="showPage('gerant')" style="background:none; border:none; color:white; font-size:20px; position:absolute; left:15px;">←</button><h2>Récap Ventes</h2></div>
+    <div class="card" id="recap-ventes"></div>
   </div>
 
   <!-- NAVBAR -->
   <div class="navbar">
-    <div class="nav-item active" onclick="showPage('accueil')"><span style="font-size:24px;">🏠</span><br>Accueil</div>
-    <div class="nav-item" onclick="showPage('menu')"><span style="font-size:24px;">🍲</span><br>Menu</div>
-    <div class="nav-item" onclick="showPage('panier')"><span style="font-size:24px;">🛒</span><br>Panier</div>
-    <div class="nav-item" onclick="showPage('gerant')"><span style="font-size:24px;">📊</span><br>Gérant</div>
+    <div class="nav-item active" onclick="showPage('accueil')"><span style="font-size:20px;">🏠</span><br>Accueil</div>
+    <div class="nav-item" onclick="showPage('menu')"><span style="font-size:20px;">🍲</span><br>Menu</div>
+    <div class="nav-item" onclick="showPage('panier')"><span style="font-size:20px;">🛒</span><br>Panier</div>
+    <div class="nav-item" onclick="showPage('gerant')"><span style="font-size:20px;">📊</span><br>Gérant</div>
   </div>
 
 <script>
   let panier = [];
-  let commandes = JSON.parse(localStorage.getItem('commandes')) || []; // On sauvegarde sur le téléphone
+  let commandes = JSON.parse(localStorage.getItem('commandes')) || [];
+  let menu = JSON.parse(localStorage.getItem('menu')) || [
+    {nom: "Poulet Braisé", prix: 4500},
+    {nom: "Attiéké Poisson", prix: 3500},
+    {nom: "Garba Spécial", prix: 2000}
+  ];
+  let employes = JSON.parse(localStorage.getItem('employes')) || [];
+  const TAXE = 0.18; // 18% TVA
 
-  // 1. DETECTER LA TABLE VIA L'URL : djogo-food.vercel.app?table=5
   const urlParams = new URLSearchParams(window.location.search);
   const numeroTable = urlParams.get('table') || 'Non défini';
-
-  const menu = [
-    {nom: "Poulet Braisé + Alloco", prix: 4500},
-    {nom: "Attiéké Poisson Braisé", prix: 3500},
-    {nom: "Garba Spécial", prix: 2000},
-    {nom: "Kedjenou Poulet", prix: 5000},
-    {nom: "Tchep Poulet", prix: 3000},
-    {nom: "Jus Bissap 1.5L", prix: 1500}
-  ];
-
-  // Afficher le numéro de table en haut
   if(numeroTable!== 'Non défini') {
     document.getElementById("table-badge").innerHTML = `<div class="table-info">Table N° ${numeroTable}</div>`;
   }
@@ -98,78 +130,93 @@
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    event.target.closest('.nav-item').classList.add('active');
     if(id === 'menu') afficherMenu();
     if(id === 'panier') afficherPanier();
-    if(id === 'mes-commandes') afficherCommandesClient();
-    if(id === 'gerant') afficherCommandesGerant();
+    if(id === 'menu-gerant') afficherMenuGerant();
+    if(id === 'employes') afficherEmployes();
+    if(id === 'ventes') afficherVentes();
   }
 
   function afficherMenu() {
-    let html = '<h3 class="section-title">Notre Menu</h3>';
+    let html = '';
     menu.forEach((plat, i) => {
-      html += `<div class="plat"><div><h3>${plat.nom}</h3><p style="color:#FF6B00; font-weight:bold;">${plat.prix.toLocaleString()} FCFA</p></div><button class="btn-ajouter" onclick="ajouter(${i})">Ajouter</button></div>`;
+      html += `<div class="plat"><div><h3>${plat.nom}</h3><p style="color:#FF6B00;">${plat.prix.toLocaleString()} FCFA</p></div><button class="btn" onclick="ajouter(${i})">Ajouter</button></div>`;
     });
     document.getElementById("liste-plats").innerHTML = html;
   }
 
-  function ajouter(i) {
-    panier.push(menu[i]);
-    alert(menu[i].nom + " ajouté ✅");
-  }
+  function ajouter(i) { panier.push(menu[i]); alert("Ajouté ✅"); }
 
   function afficherPanier() {
-    if(panier.length === 0) {
-      document.getElementById("liste-panier").innerHTML = '<div style="text-align:center; padding:50px;">Panier vide</div>';
-      return;
-    }
-    let html = '';
-    let total = 0;
-    panier.forEach((plat) => {
-      html += `<div class="plat"><div>${plat.nom}</div><div>${plat.prix.toLocaleString()} FCFA</div></div>`;
-      total += plat.prix;
-    });
-    html += `<h3 style="padding:15px;">Total: ${total.toLocaleString()} FCFA</h3>`;
+    let total = panier.reduce((a,b) => a+b.prix, 0);
+    let html = panier.map(p => `<div class="plat"><div>${p.nom}</div><div>${p.prix} FCFA</div></div>`).join('');
+    html += `<h3>Total: ${total.toLocaleString()} FCFA</h3>`;
     document.getElementById("liste-panier").innerHTML = html;
   }
 
   function envoyerCommande() {
-    if(panier.length === 0) return alert("Panier vide");
-    let nouvelleCommande = {
-      id: Date.now(),
-      table: numeroTable,
-      plats: panier,
-      total: panier.reduce((a,b) => a+b.prix, 0),
-      statut: "En cours",
-      heure: new Date().toLocaleTimeString()
-    };
+    let reduc = parseInt(document.getElementById("reduc").value) || 0;
+    let sousTotal = panier.reduce((a,b) => a+b.prix, 0);
+    let total = sousTotal - reduc;
+    let taxe = total * TAXE;
+    let totalTTC = total + taxe;
+    
+    let nouvelleCommande = {id: Date.now(), table: numeroTable, plats: panier, sousTotal, reduc, taxe, totalTTC, statut: "En cours", heure: new Date().toLocaleString()};
     commandes.push(nouvelleCommande);
-    localStorage.setItem('commandes', JSON.stringify(commandes)); // Sauvegarde
+    localStorage.setItem('commandes', JSON.stringify(commandes));
+    genererRecu(nouvelleCommande);
     panier = [];
-    alert("Commande envoyée au gérant pour la Table " + numeroTable + " ✅");
-    showPage('mes-commandes');
+    showPage('recu');
   }
 
-  function afficherCommandesClient() {
-    let mesCmd = commandes.filter(c => c.table == numeroTable);
-    if(mesCmd.length === 0) return document.getElementById("liste-commandes-client").innerHTML = '<p style="padding:20px;">Aucune commande</p>';
-    let html = '';
-    mesCmd.forEach(c => {
-      html += `<div class="commande-card"><b>Commande ${c.id}</b><br>Statut: ${c.statut}<br>Total: ${c.total} FCFA</div>`;
-    });
-    document.getElementById("liste-commandes-client").innerHTML = html;
+  function genererRecu(cmd) {
+    let html = `<div class="recu">
+      <h2 style="text-align:center;">DJOGO FOOD</h2>
+      <p>Table: ${cmd.table} | ${cmd.heure}</p><hr>
+      ${cmd.plats.map(p => `<p>${p.nom}........ ${p.prix} FCFA</p>`).join('')}
+      <hr>
+      <p>Sous-total: ${cmd.sousTotal} FCFA</p>
+      <p>Réduction: -${cmd.reduc} FCFA</p>
+      <p>TVA 18%: ${Math.round(cmd.taxe)} FCFA</p>
+      <h3>Total TTC: ${Math.round(cmd.totalTTC)} FCFA</h3>
+      <p style="text-align:center;">Merci pour votre visite!</p>
+    </div>`;
+    document.getElementById("contenu-recu").innerHTML = html;
   }
 
-  function afficherCommandesGerant() {
-    if(commandes.length === 0) return document.getElementById("liste-commandes-gerant").innerHTML = '<p style="padding:20px;">Aucune commande</p>';
-    let html = '';
-    commandes.forEach(c => {
-      html += `<div class="commande-card"><b>Table N° ${c.table}</b> - ${c.heure}<br>`;
-      c.plats.forEach(p => html += `- ${p.nom}<br>`);
-      html += `<b>Total: ${c.total} FCFA</b></div>`;
-    });
-    document.getElementById("liste-commandes-gerant").innerHTML = html;
+  // GERER MENU
+  function ajouterPlat() {
+    menu.push({nom: document.getElementById("nom-plat").value, prix: parseInt(document.getElementById("prix-plat").value)});
+    localStorage.setItem('menu', JSON.stringify(menu));
+    afficherMenuGerant();
+  }
+  function afficherMenuGerant() {
+    document.getElementById("liste-menu-gerant").innerHTML = menu.map((p,i) => 
+      `<div class="plat">${p.nom} - ${p.prix} FCFA <button class="btn btn-red" onclick="supprimerPlat(${i})">X</button></div>`
+    ).join('');
+  }
+  function supprimerPlat(i) { menu.splice(i,1); localStorage.setItem('menu', JSON.stringify(menu)); afficherMenuGerant(); }
+
+  // EMPLOYES
+  function pointer() {
+    employes.push({nom: document.getElementById("nom-emp").value, debut: document.getElementById("heure-debut").value, fin: document.getElementById("heure-fin").value});
+    localStorage.setItem('employes', JSON.stringify(employes));
+    afficherEmployes();
+  }
+  function afficherEmployes() {
+    document.getElementById("liste-employes").innerHTML = employes.map(e => 
+      `<div class="card"><b>${e.nom}</b><br>De ${e.debut} à ${e.fin}</div>`
+    ).join('');
+  }
+
+  // VENTES
+  function afficherVentes() {
+    let totalVentes = commandes.reduce((a,b) => a+b.totalTTC, 0);
+    document.getElementById("recap-ventes").innerHTML = `
+      <h3>Chiffre d'affaire: ${Math.round(totalVentes).toLocaleString()} FCFA</h3>
+      <p>Nombre de commandes: ${commandes.length}</p>
+      <p>TVA Collectée: ${Math.round(commandes.reduce((a,b) => a+b.taxe, 0))} FCFA</p>
+    `;
   }
 </script>
 </body>
