@@ -2,45 +2,39 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inscription Art Oratoire</title>
+<title>Art Oratoire</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 *{box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 body{background:linear-gradient(135deg,#0f172a,#1e3a8a);margin:0;padding:15px;display:flex;justify-content:center;}
-.card{background:white;max-width:500px;width:100%;border-radius:20px;padding:28px;}
-.badge{background:#fbbf24;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;}
-label{font-weight:600;font-size:13px;display:block;margin:14px 0 6px;}
+.card{background:white;max-width:520px;width:100%;border-radius:20px;padding:28px;}
+label{font-weight:600;font-size:13px;display:block;margin:12px 0 5px;}
 input,select,textarea{width:100%;padding:12px;border:1.5px solid #e2e8f0;border-radius:12px;}
-.photo-box{border:2px dashed #cbd5e1;border-radius:12px;padding:15px;text-align:center;cursor:pointer;}
-.photo-box img{max-width:100px;border-radius:50%;display:none;margin:10px auto;}
-button{width:100%;margin-top:20px;background:#16a34a;color:white;border:none;padding:15px;border-radius:12px;font-weight:bold;}
+.photo-box{border:2px dashed #cbd5e1;border-radius:12px;padding:14px;text-align:center;cursor:pointer;}
+.photo-box img{max-width:90px;border-radius:50%;display:none;margin:auto;}
+.btns{display:flex;gap:10px;margin-top:20px;}
+.btn-whatsapp{flex:2;background:#16a34a;color:white;border:none;padding:14px;border-radius:12px;font-weight:bold;}
+.btn-download{flex:1;background:#0f172a;color:white;border:none;padding:14px;border-radius:12px;font-weight:bold;}
 </style>
 </head>
 <body>
 <div class="card">
-<span class="badge">🎤 ART ORATOIRE</span>
-<h2>Inscription Formation</h2>
+<h2>🎤 Inscription Art Oratoire</h2>
 <form id="form">
-<label>Nom</label><input type="text" id="nom" required>
-<label>Prénoms</label><input type="text" id="prenoms" required>
+<label>Nom</label><input id="nom" required>
+<label>Prénoms</label><input id="prenoms" required>
 <label>📷 Photo</label>
-<div class="photo-box" onclick="document.getElementById('photo').click()">
-<span id="photoText">Clique pour ajouter ta photo</span>
-<input type="file" id="photo" accept="image/*" style="display:none" onchange="previewPhoto(this)">
-<img id="preview">
-</div>
-<label>💼 Profession</label>
-<select id="profession" required><option>Étudiant</option><option>Entrepreneur</option><option>Employé</option><option>Autre</option></select>
-<label>WhatsApp</label><input type="tel" id="phone" required>
-<label>💬 Message</label><textarea id="msg" rows="3" placeholder="Pourquoi cette formation?"></textarea>
-<button type="submit">✅ S'inscrire</button>
+<div class="photo-box" onclick="photo.click()"><span id="photoText">Ajouter photo</span><input type="file" id="photo" accept="image/*" style="display:none" onchange="previewPhoto(this)"><img id="preview"></div>
+<label>💼 Profession</label><select id="profession"><option>Étudiant</option><option>Entrepreneur</option><option>Employé</option></select>
+<label>WhatsApp</label><input id="phone" required>
+<label>💬 Message</label><textarea id="msg"></textarea>
+<div class="btns"><button type="submit" class="btn-whatsapp">✅ WhatsApp</button><button type="button" class="btn-download" onclick="downloadPDF()">📥 PDF</button></div>
 </form>
 </div>
 <script>
-function previewPhoto(i){let r=new FileReader();r.onload=function(e){let img=document.getElementById('preview');img.src=e.target.result;img.style.display='block';document.getElementById('photoText').innerText='Photo ajoutée ✓'};r.readAsDataURL(i.files[0]);}
-document.getElementById('form').addEventListener('submit',function(e){e.preventDefault();
-let numero="2250501118431";
-let text=`*ART ORATOIRE*%0ANom: ${nom.value} ${prenoms.value}%0AProfession: ${profession.value}%0ATel: ${phone.value}%0AMessage: ${msg.value}%0APhoto: Oui, je l'envoie après`;
-window.open(`https://wa.me/${numero}?text=${text}`,'_blank');});
+let photoBase64="";function previewPhoto(i){let r=new FileReader();r.onload=e=>{photoBase64=e.target.result;preview.src=photoBase64;preview.style.display='block';photoText.innerText='Photo ajoutée ✓'};r.readAsDataURL(i.files[0]);}
+form.addEventListener('submit',e=>{e.preventDefault();let n=`*ART ORATOIRE*%0ANom:${nom.value}%0AProfession:${profession.value}%0ATel:${phone.value}%0AMsg:${msg.value}`;window.open(`https://wa.me/2250501118431?text=${n}`,'_blank');});
+function downloadPDF(){const{jsPDF}=window.jspdf;let doc=new jsPDF();doc.setFillColor(15,23,42);doc.rect(0,0,210,35,'F');doc.setTextColor(255);doc.text("Inscription Art Oratoire",20,20);doc.setTextColor(0);let y=45;if(photoBase64)try{doc.addImage(photoBase64,'JPEG',150,40,40,40)}catch{};doc.text(`Nom: ${nom.value} ${prenoms.value}`,20,y);y+=10;doc.text(`Profession: ${profession.value}`,20,y);y+=10;doc.text(`Tel: ${phone.value}`,20,y);y+=10;doc.text(`Message: ${msg.value}`,20,y);doc.save(`Inscription_${nom.value}.pdf`);}
 </script>
 </body>
 </html>
