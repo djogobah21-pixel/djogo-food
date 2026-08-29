@@ -1,163 +1,43 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DJOGO FOOD PRO</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial; }
-    body { background: #f5f5f5; }
-   .login { width: 350px; margin: 100px auto; background: white; padding: 30px; border-radius: 10px; }
-   .sidebar { width: 250px; background: #1A1A1A; color: white; height: 100vh; position: fixed; left: 0; top: 0; }
-   .sidebar-header { padding: 20px; background: #25D366; }
-   .menu-item { padding: 12px 20px; cursor: pointer; }
-   .menu-item:hover { background: #FF6B00; }
-   .main { margin-left: 250px; padding: 20px; }
-   .card { background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px; }
-   .btn { background: #FF6B00; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-   .btn-green { background: #25D366; }
-    input { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ddd; border-radius: 5px; }
-   .hidden { display: none!important; }
-   .table-info { background: #FF6B00; color: white; padding: 10px; text-align: center; font-weight: bold; }
-   .plat { background: white; margin: 10px 0; padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; }
-    @media(max-width: 768px){.sidebar{position:relative; width:100%; height:auto;}.main{margin-left:0;}.login{width:90%;} }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscription Art Oratoire</title>
+<style>
+*{box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{background:linear-gradient(135deg,#0f172a,#1e3a8a);margin:0;padding:15px;display:flex;justify-content:center;min-height:100vh;}
+.card{background:white;max-width:480px;width:100%;border-radius:20px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,0.3);}
+.badge{background:#fbbf24;color:#78350f;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;display:inline-block;margin-bottom:10px;}
+h2{margin:5px 0;color:#0f172a;} .sub{color:#64748b;font-size:14px;margin-bottom:22px;}
+label{font-weight:600;font-size:13px;display:block;margin:14px 0 6px;}
+input,select,textarea{width:100%;padding:12px;border:1.5px solid #e2e8f0;border-radius:12px;font-size:15px;}
+button{width:100%;margin-top:22px;background:#16a34a;color:white;border:none;padding:15px;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;}
+</style>
 </head>
 <body>
-
-  <!-- PAGE CLIENT S'IL Y A?table= -->
-  <div id="client-page" class="hidden">
-    <div class="table-info" id="table-badge"></div>
-    <div class="card"><h2>Menu DJOGO FOOD</h2></div>
-    <div id="liste-plats-client"></div>
-    <div class="card">
-      <h3>Panier: <span id="total-panier">0</span> FCFA</h3>
-      <button class="btn btn-green" onclick="envoyerCommandeClient()">Commander</button>
-    </div>
-  </div>
-
-  <!-- PAGE CONNEXION POUR STAFF -->
-  <div id="login-page" class="login">
-    <h2 style="text-align:center; margin-bottom:20px; color:#FF6B00;">🍴 STAFF DJOGO FOOD</h2>
-    <input id="login-nom" placeholder="Nom d'utilisateur">
-    <input id="login-pass" type="password" placeholder="Mot de passe">
-    <button class="btn" style="width:100%;" onclick="seConnecter()">Se connecter</button>
-    <p style="font-size:12px; margin-top:10px; text-align:center;">Propriétaire: admin / 1234</p>
-  </div>
-
-  <!-- APPLICATION STAFF -->
-  <div id="app" class="hidden">
-    <div class="sidebar">
-      <div class="sidebar-header">
-        <h3 id="user-name">Propriétaire</h3>
-        <p id="user-role">admin</p>
-      </div>
-      <!-- MENU PROPRIETAIRE UNIQUEMENT -->
-      <div id="menu-proprietaire" class="hidden">
-        <div class="menu-item" onclick="showSection('ventes')">📊 Rapports Ventes</div>
-        <div class="menu-item" onclick="showSection('articles')">🛒 Gérer Menu</div>
-        <div class="menu-item" onclick="showSection('employes')">👨‍🍳 Gérer Employés</div>
-        <div class="menu-item" onclick="showSection('commandes')">📋 Toutes Commandes</div>
-      </div>
-      <!-- MENU EMPLOYE UNIQUEMENT -->
-      <div id="menu-employe" class="hidden">
-        <div class="menu-item" onclick="showSection('pointer')">⏰ Pointer</div>
-        <div class="menu-item" onclick="showSection('mes-commandes')">📋 Mes Commandes</div>
-      </div>
-      <div class="menu-item" onclick="deconnexion()">🚪 Déconnexion</div>
-    </div>
-
-    <div class="main">
-      <div id="ventes" class="section"><h2>Récap Ventes</h2><div class="card" id="recap-ventes"></div></div>
-      <div id="articles" class="section hidden"><h2>Gérer Menu</h2><div class="card"><input id="nom-plat"><input id="prix-plat"><button class="btn" onclick="ajouterPlat()">Ajouter</button></div><div id="liste-menu-gerant"></div></div>
-      <div id="employes" class="section hidden"><h2>Créer Employé - Admin Seulement</h2><div class="card"><input id="new-nom"><input id="new-pass"><button class="btn" onclick="creerEmploye()">Créer</button></div><div id="liste-tous-employes"></div></div>
-      <div id="commandes" class="section hidden"><h2>Toutes les Commandes</h2><div id="liste-commandes-gerant"></div></div>
-      <div id="pointer" class="section hidden"><h2>Pointer</h2><div class="card"><input type="time" id="heure-debut"><input type="time" id="heure-fin"><button class="btn btn-green" onclick="pointer()">Valider</button></div></div>
-      <div id="mes-commandes" class="section hidden"><h2>Mes Commandes</h2><div id="liste-mes-commandes"></div></div>
-    </div>
-  </div>
-
+<div class="card">
+<span class="badge">🎤 FORMATION ART ORATOIRE</span>
+<h2>Deviens un Orateur Captivant</h2>
+<p class="sub">Réserve ta place maintenant - Places limitées !</p>
+<form id="form">
+<label>Nom et Prénoms</label><input type="text" id="nom" required placeholder="Ex: Koffi Jean">
+<label>WhatsApp</label><input type="tel" id="phone" required placeholder="05 XX XX XX XX">
+<label>Commune</label><select id="ville" required><option>Cocody</option><option>Yopougon</option><option>Adjamé</option><option>Plateau</option><option>Autre</option></select>
+<label>Niveau</label><select id="niveau" required><option>Débutant - J'ai peur de parler</option><option>Intermédiaire</option><option>Avancé</option></select>
+<button type="submit">✅ S'inscrire sur WhatsApp</button>
+</form>
+</div>
 <script>
-  let userConnecte = null;
-  let panier = [];
-  let users = JSON.parse(localStorage.getItem('users')) || [{nom: "admin", pass: "1234", role: "proprietaire"}];
-  let commandes = JSON.parse(localStorage.getItem('commandes')) || [];
-  let menu = JSON.parse(localStorage.getItem('menu')) || [{nom: "Poulet Braisé", prix: 4500}];
-  let pointages = JSON.parse(localStorage.getItem('pointages')) || [];
-  const TAXE = 0.18;
-
-  // DETECTION SI C'EST UN CLIENT OU STAFF
-  const urlParams = new URLSearchParams(window.location.search);
-  const numeroTable = urlParams.get('table');
-
-  if(numeroTable) { // SI QR CODE SCANNE
-    document.getElementById("login-page").classList.add("hidden");
-    document.getElementById("client-page").classList.remove("hidden");
-    document.getElementById("table-badge").innerText = `Table N° ${numeroTable}`;
-    afficherMenuClient();
-  }
-
-  function afficherMenuClient() {
-    document.getElementById("liste-plats-client").innerHTML = menu.map((p,i) =>
-      `<div class="plat"><div><h3>${p.nom}</h3><p>${p.prix} FCFA</p></div><button class="btn" onclick="ajouterPanier(${i})">+</button></div>`
-    ).join('');
-  }
-  function ajouterPanier(i) { panier.push(menu[i]); majTotal(); }
-  function majTotal() { document.getElementById("total-panier").innerText = panier.reduce((a,b)=>a+b.prix,0); }
-
-  function envoyerCommandeClient() {
-    let sousTotal = panier.reduce((a,b) => a+b.prix, 0);
-    let taxe = sousTotal * TAXE;
-    let totalTTC = sousTotal + taxe;
-    commandes.push({id: Date.now(), table: numeroTable, plats: panier, sousTotal, taxe, totalTTC, statut: "En cours", heure: new Date().toLocaleString(), serveur: "Client"});
-    localStorage.setItem('commandes', JSON.stringify(commandes));
-    alert("Commande envoyée ✅");
-    panier = []; majTotal();
-  }
-
-  // PARTIE STAFF
-  function seConnecter() {
-    let nom = document.getElementById("login-nom").value;
-    let pass = document.getElementById("login-pass").value;
-    let user = users.find(u => u.nom === nom && u.pass === pass);
-    if(!user) return alert("Mauvais identifiants");
-
-    userConnecte = user;
-    document.getElementById("login-page").classList.add("hidden");
-    document.getElementById("app").classList.remove("hidden");
-    document.getElementById("user-name").innerText = user.nom;
-
-    if(user.role === "proprietaire") {
-      document.getElementById("menu-proprietaire").classList.remove("hidden");
-      showSection('ventes');
-    } else { // EMPLOYE
-      document.getElementById("menu-employe").classList.remove("hidden");
-      showSection('pointer');
-    }
-  }
-  function deconnexion() { location.reload(); }
-  function showSection(id) {
-    document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-    document.getElementById(id).classList.remove('hidden');
-    if(id==='ventes') afficherVentes();
-    if(id==='articles') afficherMenuGerant();
-    if(id==='employes') afficherTousEmployes();
-    if(id==='commandes') afficherCommandesGerant();
-    if(id==='mes-commandes') afficherMesCommandes();
-  }
-
-  function creerEmploye() { // ADMIN SEULEMENT
-    users.push({nom: document.getElementById("new-nom").value, pass: document.getElementById("new-pass").value, role: "employe"});
-    localStorage.setItem('users', JSON.stringify(users));
-    afficherTousEmployes();
-  }
-  function afficherTousEmployes() { document.getElementById("liste-tous-employes").innerHTML = users.filter(u=>u.role==='employe').map(u=>`<div class="card">${u.nom}</div>`).join(''); }
-  function pointer() { pointages.push({nom: userConnecte.nom, debut: document.getElementById("heure-debut").value, fin: document.getElementById("heure-fin").value}); localStorage.setItem('pointages', JSON.stringify(pointages)); }
-  function afficherVentes() { document.getElementById("recap-ventes").innerHTML = `<h3>CA: ${Math.round(commandes.reduce((a,b) => a+b.totalTTC, 0))} FCFA</h3>`; }
-  function ajouterPlat() { menu.push({nom: document.getElementById("nom-plat").value, prix: parseInt(document.getElementById("prix-plat").value)}); localStorage.setItem('menu', JSON.stringify(menu)); }
-  function afficherMenuGerant() { document.getElementById("liste-menu-gerant").innerHTML = menu.map(p=>`<div class="card">${p.nom} - ${p.prix}</div>`).join(''); }
-  function afficherCommandesGerant() { document.getElementById("liste-commandes-gerant").innerHTML = commandes.map(c=>`<div class="card">Table ${c.table} - ${c.totalTTC}</div>`).join(''); }
-  function afficherMesCommandes() { document.getElementById("liste-mes-commandes").innerHTML = commandes.filter(c => c.serveur === userConnecte.nom).map(c=>`<div class="card">Table ${c.table}</div>`).join(''); }
+document.getElementById('form').addEventListener('submit', function(e){
+ e.preventDefault();
+ let nom=document.getElementById('nom').value;
+ let phone=document.getElementById('phone').value;
+ let ville=document.getElementById('ville').value;
+ let niveau=document.getElementById('niveau').value;
+ let numero="2250501118431";
+ let text=`*🎤 NOUVELLE INSCRIPTION - ART ORATOIRE*%0A%0ANom: ${nom}%0AWhatsApp: ${phone}%0ACommune: ${ville}%0ANiveau: ${niveau}`;
+ window.open(`https://wa.me/${numero}?text=${text}`,'_blank');
+});
 </script>
 </body>
 </html>
