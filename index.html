@@ -5,39 +5,42 @@
 <title>Inscription Art Oratoire</title>
 <style>
 *{box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-body{background:linear-gradient(135deg,#0f172a,#1e3a8a);margin:0;padding:15px;display:flex;justify-content:center;min-height:100vh;}
-.card{background:white;max-width:480px;width:100%;border-radius:20px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,0.3);}
-.badge{background:#fbbf24;color:#78350f;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;display:inline-block;margin-bottom:10px;}
-h2{margin:5px 0;color:#0f172a;} .sub{color:#64748b;font-size:14px;margin-bottom:22px;}
+body{background:linear-gradient(135deg,#0f172a,#1e3a8a);margin:0;padding:15px;display:flex;justify-content:center;}
+.card{background:white;max-width:500px;width:100%;border-radius:20px;padding:28px;}
+.badge{background:#fbbf24;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:bold;}
 label{font-weight:600;font-size:13px;display:block;margin:14px 0 6px;}
-input,select,textarea{width:100%;padding:12px;border:1.5px solid #e2e8f0;border-radius:12px;font-size:15px;}
-button{width:100%;margin-top:22px;background:#16a34a;color:white;border:none;padding:15px;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;}
+input,select,textarea{width:100%;padding:12px;border:1.5px solid #e2e8f0;border-radius:12px;}
+.photo-box{border:2px dashed #cbd5e1;border-radius:12px;padding:15px;text-align:center;cursor:pointer;}
+.photo-box img{max-width:100px;border-radius:50%;display:none;margin:10px auto;}
+button{width:100%;margin-top:20px;background:#16a34a;color:white;border:none;padding:15px;border-radius:12px;font-weight:bold;}
 </style>
 </head>
 <body>
 <div class="card">
-<span class="badge">🎤 FORMATION ART ORATOIRE</span>
-<h2>Deviens un Orateur Captivant</h2>
-<p class="sub">Réserve ta place maintenant - Places limitées !</p>
+<span class="badge">🎤 ART ORATOIRE</span>
+<h2>Inscription Formation</h2>
 <form id="form">
-<label>Nom et Prénoms</label><input type="text" id="nom" required placeholder="Ex: Koffi Jean">
-<label>WhatsApp</label><input type="tel" id="phone" required placeholder="05 XX XX XX XX">
-<label>Commune</label><select id="ville" required><option>Cocody</option><option>Yopougon</option><option>Adjamé</option><option>Plateau</option><option>Autre</option></select>
-<label>Niveau</label><select id="niveau" required><option>Débutant - J'ai peur de parler</option><option>Intermédiaire</option><option>Avancé</option></select>
-<button type="submit">✅ S'inscrire sur WhatsApp</button>
+<label>Nom</label><input type="text" id="nom" required>
+<label>Prénoms</label><input type="text" id="prenoms" required>
+<label>📷 Photo</label>
+<div class="photo-box" onclick="document.getElementById('photo').click()">
+<span id="photoText">Clique pour ajouter ta photo</span>
+<input type="file" id="photo" accept="image/*" style="display:none" onchange="previewPhoto(this)">
+<img id="preview">
+</div>
+<label>💼 Profession</label>
+<select id="profession" required><option>Étudiant</option><option>Entrepreneur</option><option>Employé</option><option>Autre</option></select>
+<label>WhatsApp</label><input type="tel" id="phone" required>
+<label>💬 Message</label><textarea id="msg" rows="3" placeholder="Pourquoi cette formation?"></textarea>
+<button type="submit">✅ S'inscrire</button>
 </form>
 </div>
 <script>
-document.getElementById('form').addEventListener('submit', function(e){
- e.preventDefault();
- let nom=document.getElementById('nom').value;
- let phone=document.getElementById('phone').value;
- let ville=document.getElementById('ville').value;
- let niveau=document.getElementById('niveau').value;
- let numero="2250501118431";
- let text=`*🎤 NOUVELLE INSCRIPTION - ART ORATOIRE*%0A%0ANom: ${nom}%0AWhatsApp: ${phone}%0ACommune: ${ville}%0ANiveau: ${niveau}`;
- window.open(`https://wa.me/${numero}?text=${text}`,'_blank');
-});
+function previewPhoto(i){let r=new FileReader();r.onload=function(e){let img=document.getElementById('preview');img.src=e.target.result;img.style.display='block';document.getElementById('photoText').innerText='Photo ajoutée ✓'};r.readAsDataURL(i.files[0]);}
+document.getElementById('form').addEventListener('submit',function(e){e.preventDefault();
+let numero="2250501118431";
+let text=`*ART ORATOIRE*%0ANom: ${nom.value} ${prenoms.value}%0AProfession: ${profession.value}%0ATel: ${phone.value}%0AMessage: ${msg.value}%0APhoto: Oui, je l'envoie après`;
+window.open(`https://wa.me/${numero}?text=${text}`,'_blank');});
 </script>
 </body>
 </html>
