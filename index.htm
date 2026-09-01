@@ -3,22 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Club Art Oratoire - Inscription</title>
+<title>Club Art Oratoire - Formulaire Complet</title>
 <style>
-*{box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f6f7fb;margin:0;padding:12px;color:#222}
-.container{max-width:900px;margin:auto;background:white;border-radius:16px;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,.08)}
-header{background:#0f172a;color:white;padding:28px;text-align:center}
-header h1{margin:0;font-size:20px}header h2{margin:6px 0;color:#fbbf24}
-.slogan{font-style:italic;color:#cbd5e1;margin:8px 0} .intro{font-size:13px;color:#e2e8f0;max-width:650px;margin:10px auto 0}
-form{padding:20px}section{border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin-bottom:16px;background:#fcfdff}
-h3{margin:0 0 10px;font-size:14px;color:#0f172a;border-left:4px solid #fbbf24;padding-left:10px;text-transform:uppercase}
-label{font-size:12.5px;font-weight:700;display:block;margin-bottom:3px}
-input,select,textarea{width:100%;padding:11px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;margin-top:4px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px} .full{grid-column:1/3} .mt{margin-top:12px}
-.checks,.radios{display:flex;flex-wrap:wrap;gap:7px 14px;margin-top:6px}
-.checks label,.radios label{font-weight:400;font-size:12.5px;background:#f1f5f9;padding:6px 10px;border-radius:20px;display:flex;align-items:center;gap:5px}
-button{width:100%;padding:14px;background:#0f172a;color:#fbbf24;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer;margin-top:10px}
-button:hover{background:#000}
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;background:#eef2f7;margin:0;padding:10px}
+.container{max-width:950px;margin:auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+header{background:#0f172a;color:white;padding:30px;text-align:center}
+header h1{margin:0;font-size:22px}header h2{color:#fbbf24;margin:5px 0}
+.slogan{font-style:italic;color:#94a3b8}.intro{font-size:13px;color:#cbd5e1;max-width:700px;margin:10px auto 0}
+form{padding:20px}
+section{border:1px solid #e5e7eb;border-radius:12px;padding:18px;margin-bottom:18px}
+h3{background:#0f172a;color:#fbbf24;padding:8px 12px;border-radius:6px;font-size:14px;margin:-18px -18px 15px -18px}
+label{font-size:13px;font-weight:600;display:block;margin:6px 0 3px}
+input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:7px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mt{margin-top:12px}
+.checks{display:flex;flex-wrap:wrap;gap:6px}.checks label{font-weight:400;background:#f1f5f9;padding:5px 10px;border-radius:20px;font-size:12px;display:flex;gap:4px;align-items:center}
+textarea{resize:vertical}
+button{width:100%;padding:16px;background:#25D366;color:white;border:none;border-radius:10px;font-size:17px;font-weight:800;cursor:pointer}
+button:hover{background:#1da851}
 @media(max-width:600px){.grid2{grid-template-columns:1fr}}
 </style>
 </head>
@@ -27,52 +28,106 @@ button:hover{background:#000}
 <header>
 <h1>FORMULAIRE D'INSCRIPTION</h1>
 <h2>CLUB ART ORATOIRE</h2>
-<p class="slogan">« Prenez la parole. Affirmez votre leadership. »</p>
+<p class="slogan">« Prenez la parole. Affirmez votre leadership. Faites la différence. »</p>
+<p class="intro">Merci de renseigner soigneusement les informations ci-dessous.</p>
 </header>
 
 <form id="formClub">
-<section><h3>1. Informations Personnelles</h3>
+
+<section><h3>1. INFORMATIONS PERSONNELLES</h3>
 <div class="grid2">
 <div><label>Nom *</label><input id="nom" type="text" required></div>
 <div><label>Prénom(s) *</label><input id="prenom" type="text" required></div>
-<div><label>Téléphone / WhatsApp *</label><input id="telephone" type="tel" placeholder="+225..." required></div>
+<div><label>Date de naissance</label><input id="naissance" type="date"></div>
+<div><label>Sexe</label><select id="sexe"><option value="">Choisir</option><option>Femme</option><option>Homme</option></select></div>
+<div><label>Téléphone / WhatsApp *</label><input id="tel" type="tel" required></div>
 <div><label>Email *</label><input id="email" type="email" required></div>
-<div class="full"><label>Ville / Commune</label><input id="ville" type="text"></div>
-<div><label>Situation</label><select id="situation"><option>Étudiant(e)</option><option>Salarié(e)</option><option>Cadre</option><option>Dirigeant(e)</option><option>Entrepreneur(e)</option><option>Autre</option></select></div>
-<div><label>Formule souhaitée</label><select id="formule"><option>Découverte</option><option>Essentielle</option><option>Premium</option><option>Coaching individuel</option><option>Entreprise</option></select></div>
+<div class="full" style="grid-column:1/3"><label>Ville / Commune</label><input id="ville" type="text"></div>
 </div>
-<div class="mt"><label>Ta principale difficulté ?</label><textarea id="defi" rows="2" placeholder="Ex: Trac, manque de confiance..."></textarea></div>
-<div class="mt"><label>Ton objectif principal ?</label><textarea id="objectif" rows="2" placeholder="Ex: Devenir plus convaincant..."></textarea></div>
 </section>
 
-<section><h3>Engagement</h3>
-<label><input type="checkbox" required> J’accepte les conditions d’adhésion</label>
-<label style="margin-top:8px"><input type="checkbox" required> J’accepte d’être contacté(e)</label>
+<section><h3>2. PROFIL PROFESSIONNEL</h3>
+<label>Situation actuelle</label><div class="checks" id="situation"><label><input type="checkbox" value="Étudiant">Étudiant</label><label><input type="checkbox" value="Salarié">Salarié</label><label><input type="checkbox" value="Cadre">Cadre</label><label><input type="checkbox" value="Dirigeant">Dirigeant</label><label><input type="checkbox" value="Entrepreneur">Entrepreneur</label><label><input type="checkbox" value="Manager">Manager</label><label><input type="checkbox" value="Fonctionnaire">Fonctionnaire</label><label><input type="checkbox" value="Politique">Politique</label><label><input type="checkbox" value="Coach">Coach</label></div>
+<div class="grid2 mt"><div><label>Fonction actuelle</label><input id="fonction" type="text"></div><div><label>Secteur d’activité</label><input id="secteur" type="text"></div></div>
+<label class="mt">Expérience</label><select id="experience"><option>Moins de 2 ans</option><option>2 à 5 ans</option><option>6 à 10 ans</option><option>11 à 15 ans</option><option>Plus de 15 ans</option></select>
 </section>
 
-<button type="submit">Envoyer sur WhatsApp</button>
+<section><h3>3. RAPPORT À LA PRISE DE PAROLE</h3>
+<label>Niveau actuel</label><select id="niveau"><option>Débutant</option><option>Moyen</option><option>Bon</option><option>Très bon</option><option>Excellent</option></select>
+<label class="mt">Situations où vous parlez</label><div class="checks" id="situations"><label><input type="checkbox" value="Réunion pro">Réunion</label><label><input type="checkbox" value="PowerPoint">PowerPoint</label><label><input type="checkbox" value="Conférence">Conférence</label><label><input type="checkbox" value="Négociation">Négociation</label><label><input type="checkbox" value="Média">Média</label><label><input type="checkbox" value="Réseaux sociaux">Réseaux sociaux</label><label><input type="checkbox" value="Politique">Politique</label><label><input type="checkbox" value="Formation">Formation</label></div>
+</section>
+
+<section><h3>4. VOS DÉFIS</h3>
+<div class="checks" id="defis"><label><input type="checkbox" value="Confiance">Manque confiance</label><label><input type="checkbox" value="Trac">Trac/peur</label><label><input type="checkbox" value="Structurer idées">Structurer idées</label><label><input type="checkbox" value="Éloquence">Éloquence</label><label><input type="checkbox" value="Convaincre">Convaincre</label><label><input type="checkbox" value="Voix">Voix</label><label><input type="checkbox" value="Diction">Diction</label><label><input type="checkbox" value="Captiver">Captiver</label><label><input type="checkbox" value="Improviser">Improviser</label><label><input type="checkbox" value="Charisme">Charisme</label></div>
+<label class="mt">LA difficulté à résoudre absolument ?</label><textarea id="difficulte" rows="2"></textarea>
+</section>
+
+<section><h3>5 & 6 & 7. OBJECTIF / ENGAGEMENT / ATTENTES</h3>
+<label>Objectifs (cochez)</label><div class="checks" id="objectifs"><label><input type="checkbox" value="Confiance">Confiance</label><label><input type="checkbox" value="Leadership">Leadership</label><label><input type="checkbox" value="Charisme">Charisme</label><label><input type="checkbox" value="Convaincant">Convaincant</label><label><input type="checkbox" value="Performance pro">Performance pro</label><label><input type="checkbox" value="Influence">Influence</label><label><input type="checkbox" value="Personal branding">Personal branding</label></div>
+<label class="mt">Résultat concret souhaité ?</label><textarea id="resultat" rows="2"></textarea>
+<div class="grid2 mt"><div><label>Temps / semaine</label><select id="temps"><option>30 min</option><option>1h</option><option>2h</option><option>+2h</option></select></div><div><label>Format</label><select id="format"><option>Présentiel</option><option>En ligne</option><option>Hybride</option></select></div><div><label>Fréquence</label><select id="freq"><option>1 fois / semaine</option><option>2 fois / semaine</option><option>Selon calendrier</option></select></div><div><label>Attente principale</label><select id="attente"><option>Formation</option><option>Coaching perso</option><option>Pratique</option><option>Networking</option><option>Leadership</option></select></div></div>
+<label class="mt">Motivation /10</label><select id="motivation"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
+<label class="mt">Pourquoi maintenant ?</label><textarea id="pourquoi" rows="2"></textarea>
+</section>
+
+<section><h3>8 & 9. CONNAISSANCE & FORMULE</h3>
+<div class="grid2"><div><label>Connu via ?</label><select id="connu"><option>WhatsApp</option><option>TikTok</option><option>Facebook</option><option>Instagram</option><option>LinkedIn</option><option>Recommandation</option><option>Conférence</option><option>Membre</option></select></div><div><label>Nom recommandeur</label><input id="recommandeur" type="text"></div><div><label>Formule</label><select id="formule"><option>Découverte</option><option>Essentielle</option><option>Premium</option><option>Coaching individuel</option><option>Entreprise</option><option>Conseil avant choix</option></select></div><div><label>Budget</label><select id="budget"><option>Moins de 25k</option><option>25k-50k</option><option>50k-100k</option><option>Plus de 100k</option><option>Recevoir formules</option></select></div></div>
+<label class="mt"><input type="checkbox" required> J’accepte les conditions d’adhésion</label>
+<label><input type="checkbox" required> J’accepte d’être contacté(e)</label>
+</section>
+
+<button type="submit">✅ ENVOYER MON INSCRIPTION SUR WHATSAPP</button>
 </form>
 </div>
 
 <script>
+function getChecks(id){return Array.from(document.querySelectorAll(`#${id} input:checked`)).map(e=>e.value).join(', ');}
 document.getElementById('formClub').addEventListener('submit', function(e){
-  e.preventDefault();
-  let nom = document.getElementById('nom').value;
-  let prenom = document.getElementById('prenom').value;
-  let telephone = document.getElementById('telephone').value;
-  let email = document.getElementById('email').value;
-  let ville = document.getElementById('ville').value;
-  let situation = document.getElementById('situation').value;
-  let formule = document.getElementById('formule').value;
-  let defi = document.getElementById('defi').value;
-  let objectif = document.getElementById('objectif').value;
+ e.preventDefault();
+ let data = {
+  nom: document.getElementById('nom').value,
+  prenom: document.getElementById('prenom').value,
+  naissance: document.getElementById('naissance').value,
+  sexe: document.getElementById('sexe').value,
+  tel: document.getElementById('tel').value,
+  email: document.getElementById('email').value,
+  ville: document.getElementById('ville').value,
+  situation: getChecks('situation'),
+  fonction: document.getElementById('fonction').value,
+  secteur: document.getElementById('secteur').value,
+  experience: document.getElementById('experience').value,
+  niveau: document.getElementById('niveau').value,
+  situations: getChecks('situations'),
+  defis: getChecks('defis'),
+  difficulte: document.getElementById('difficulte').value,
+  objectifs: getChecks('objectifs'),
+  resultat: document.getElementById('resultat').value,
+  temps: document.getElementById('temps').value,
+  format: document.getElementById('format').value,
+  freq: document.getElementById('freq').value,
+  attente: document.getElementById('attente').value,
+  motivation: document.getElementById('motivation').value,
+  pourquoi: document.getElementById('pourquoi').value,
+  connu: document.getElementById('connu').value,
+  recommandeur: document.getElementById('recommandeur').value,
+  formule: document.getElementById('formule').value,
+  budget: document.getElementById('budget').value
+ };
 
-  let message = `🔥 NOUVELLE INSCRIPTION - CLUB ART ORATOIRE 🔥%0A%0A👤 Nom: ${nom} ${prenom}%0A📞 Tel: ${telephone}%0A📧 Email: ${email}%0A📍 Ville: ${ville}%0A💼 Situation: ${situation}%0A🎯 Formule: ${formule}%0A%0A❌ Défi: ${defi}%0A✅ Objectif: ${objectif}`;
+ let msg = `*NOUVELLE INSCRIPTION - CLUB ART ORATOIRE*%0A%0A`+
+ `👤 *${data.nom} ${data.prenom}* - ${data.sexe} (${data.naissance})%0A`+
+ `📞 ${data.tel} | 📧 ${data.email} | 📍 ${data.ville}%0A`+
+ `💼 ${data.situation} - ${data.fonction} (${data.secteur}) - Exp: ${data.experience}%0A`+
+ `🎤 Niveau: ${data.niveau} | Parle en: ${data.situations}%0A`+
+ `❌ Défis: ${data.defis}%0A🔥 Difficulté majeure: ${data.difficulte}%0A`+
+ `🎯 Objectifs: ${data.objectifs}%0A💡 Résultat voulu: ${data.resultat}%0A`+
+ `⏰ ${data.temps}/sem - ${data.format} - ${data.freq} - Attente: ${data.attente}%0A`+
+ `🔋 Motivation: ${data.motivation}/10 - Pourquoi maintenant: ${data.pourquoi}%0A`+
+ `👀 Connu via: ${data.connu} (par ${data.recommandeur})%0A`+
+ `💰 Formule: ${data.formule} | Budget: ${data.budget}`;
 
-  let tonNumero = "2250501118431"; 
-  window.open(`https://wa.me/${tonNumero}?text=${message}`, '_blank');
+ window.open(`https://wa.me/2250501118431?text=${msg}`, '_blank');
 });
 </script>
-
 </body>
 </html>
