@@ -2,97 +2,123 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Club Art Oratoire - PDF Complet</title>
+<title>Club Art Oratoire - Complet Logo + Photo</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#eef2f7;font-family:Arial;padding:10px}
-.container{max-width:950px;margin:auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.1)}
-header{background:#0f172a;color:#fff;padding:25px;text-align:center}
-header h1{margin:0;font-size:20px}header h2{color:#fbbf24;margin:5px 0}
-.slogan{font-style:italic;color:#94a3b8;font-size:13px}
-form{padding:15px}section{border:1px solid #e2e8f0;border-radius:10px;padding:14px;margin-bottom:14px}
-h3{background:#0f172a;color:#fbbf24;padding:7px 10px;margin:-14px -14px 12px;border-radius:10px 10px 0 0;font-size:13px}
-label{font-size:12px;font-weight:700;display:block;margin-top:6px}
-input,select,textarea{width:100%;padding:9px;border:1px solid #ccc;border-radius:6px;margin-top:3px;font-size:13px}
+.container{max-width:980px;margin:auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+header{background:#0f172a;color:#fff;padding:20px;text-align:center}
+.logo{width:110px;height:110px;border-radius:50%;border:3px solid #fbbf24;background:#fff;object-fit:cover}
+header h1{margin:10px 0 0;font-size:20px}header h2{color:#fbbf24;margin:4px 0;font-size:16px}
+.slogan{font-style:italic;color:#94a3b8;font-size:12px}
+form{padding:14px}section{border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:12px}
+h3{background:#0f172a;color:#fbbf24;padding:6px 10px;margin:-12px -12px 10px;border-radius:10px 10px 0 0;font-size:12px}
+label{font-size:11px;font-weight:700;display:block;margin-top:5px}
+input,select,textarea{width:100%;padding:8px;border:1px solid #ccc;border-radius:6px;margin-top:2px;font-size:12px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.checks{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}.checks label{font-weight:400;font-size:11px;background:#f1f5f9;padding:5px 8px;border-radius:15px;display:flex;gap:4px;align-items:center}
-button{width:100%;padding:16px;background:#25D366;color:#fff;border:none;border-radius:10px;font-size:17px;font-weight:800;cursor:pointer;margin-top:10px}
+.checks{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.checks label{font-weight:400;font-size:10px;background:#f1f5f9;padding:4px 7px;border-radius:12px;display:flex;gap:3px;align-items:center}
+.photo-box{display:flex;align-items:center;gap:12px;background:#fffbeb;border:2px dashed #fbbf24;border-radius:10px;padding:10px}
+#preview{width:85px;height:85px;border-radius:50%;object-fit:cover;border:3px solid #0f172a;background:#ddd;display:none}
+button{width:100%;padding:15px;background:#25D366;color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer}
 @media(max-width:600px){.grid2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="container">
-<header><h1>FORMULAIRE D'INSCRIPTION</h1><h2>CLUB ART ORATOIRE</h2><div class="slogan">« Prenez la parole. Affirmez votre leadership. Faites la différence. »</div></header>
+<header>
+<img src="logo.png" class="logo">
+<h1>FORMULAIRE D'INSCRIPTION</h1><h2>CLUB ART ORATOIRE INTERNATIONAL</h2>
+<div class="slogan">« Prenez la parole. Affirmez votre leadership. »</div>
+</header>
+
 <form id="formClub">
+<section><h3>PHOTO D'IDENTITE *</h3>
+<div class="photo-box">
+<img id="preview"><div style="flex:1">
+<label>Ajouter votre photo (pour carte membre)</label>
+<input type="file" id="photoInput" accept="image/*" required>
+</div></div>
+</section>
+
 <section><h3>1. INFORMATIONS PERSONNELLES</h3>
 <div class="grid2">
-<div><label>Nom*</label><input id="nom" required></div>
-<div><label>Prénom(s)*</label><input id="prenom" required></div>
-<div><label>Date de naissance</label><input id="dob" type="date"></div>
+<div><label>Nom *</label><input id="nom" required></div>
+<div><label>Prénoms *</label><input id="prenom" required></div>
+<div><label>Date naissance</label><input id="dob" type="date"></div>
 <div><label>Sexe</label><select id="sexe"><option>Femme</option><option>Homme</option></select></div>
-<div><label>Téléphone / WhatsApp*</label><input id="tel" required></div>
-<div><label>Email*</label><input id="email" type="email" required></div>
-<div style="grid-column:1/3"><label>Ville / Commune</label><input id="ville"></div>
+<div><label>Tel / WhatsApp *</label><input id="tel" required></div>
+<div><label>Email *</label><input id="email" type="email" required></div>
+<div style="grid-column:1/3"><label>Ville</label><input id="ville"></div>
 </div></section>
 
-<section><h3>2. PROFIL PROFESSIONNEL</h3>
-<div class="checks" id="sit"><label><input type="checkbox" value="Etudiant">Étudiant</label><label><input type="checkbox" value="Salarie">Salarié</label><label><input type="checkbox" value="Cadre">Cadre</label><label><input type="checkbox" value="Dirigeant">Dirigeant</label><label><input type="checkbox" value="Entrepreneur">Entrepreneur</label><label><input type="checkbox" value="Manager">Manager</label><label><input type="checkbox" value="Fonctionnaire">Fonctionnaire</label><label><input type="checkbox" value="Coach">Coach</label></div>
-<div class="grid2" style="margin-top:8px"><div><label>Fonction</label><input id="fonc"></div><div><label>Secteur</label><input id="sect"></div><div><label>Expérience</label><select id="exp"><option>Moins de 2 ans</option><option>2 à 5 ans</option><option>6 à 10 ans</option><option>11 à 15 ans</option><option>Plus de 15 ans</option></select></div></div>
+<section><h3>2. PROFIL PRO</h3>
+<div class="checks" id="sit"><label><input type="checkbox" value="Etudiant">Étudiant</label><label><input type="checkbox" value="Salarié">Salarié</label><label><input type="checkbox" value="Cadre">Cadre</label><label><input type="checkbox" value="Dirigeant">Dirigeant</label><label><input type="checkbox" value="Entrepreneur">Entrepreneur</label><label><input type="checkbox" value="Manager">Manager</label><label><input type="checkbox" value="Fonctionnaire">Fonctionnaire</label><label><input type="checkbox" value="Coach">Coach</label></div>
+<div class="grid2" style="margin-top:6px"><div><label>Fonction</label><input id="fonc"></div><div><label>Secteur</label><input id="sect"></div><div><label>Expérience</label><select id="exp"><option>Moins de 2 ans</option><option>2 à 5 ans</option><option>6 à 10 ans</option><option>11 à 15 ans</option><option>Plus de 15 ans</option></select></div></div>
 </section>
 
-<section><h3>3. RAPPORT PRISE DE PAROLE</h3>
-<div class="grid2"><div><label>Niveau actuel</label><select id="niv"><option>Débutant</option><option>Moyen</option><option>Bon</option><option>Très bon</option><option>Excellent</option></select></div></div>
-<label>Situations</label><div class="checks" id="situ"><label><input type="checkbox" value="Reunion pro">Réunion</label><label><input type="checkbox" value="PowerPoint">PowerPoint</label><label><input type="checkbox" value="Conference">Conférence</label><label><input type="checkbox" value="Negociation">Négociation</label><label><input type="checkbox" value="Media">Média</label><label><input type="checkbox" value="Reseaux sociaux">Réseaux sociaux</label></div>
-</section>
-
-<section><h3>4. DEFIS + 5. OBJECTIF</h3>
-<label>Défis actuels</label><div class="checks" id="defis"><label><input type="checkbox" value="Confiance">Confiance</label><label><input type="checkbox" value="Trac">Trac</label><label><input type="checkbox" value="Structurer">Structurer idées</label><label><input type="checkbox" value="Eloquence">Éloquence</label><label><input type="checkbox" value="Convaincre">Convaincre</label><label><input type="checkbox" value="Voix">Voix</label><label><input type="checkbox" value="Diction">Diction</label><label><input type="checkbox" value="Captiver">Captiver</label><label><input type="checkbox" value="Improviser">Improviser</label><label><input type="checkbox" value="Charisme">Charisme</label></div>
-<label style="margin-top:8px">LA difficulté à résoudre absolument</label><textarea id="diffMajeure" rows="2"></textarea>
-<label>Objectifs</label><div class="checks" id="objs"><label><input type="checkbox" value="Confiance">Confiance</label><label><input type="checkbox" value="Orateur">Meilleur orateur</label><label><input type="checkbox" value="Leadership">Leadership</label><label><input type="checkbox" value="Charisme">Charisme</label><label><input type="checkbox" value="Performance">Performance pro</label><label><input type="checkbox" value="Influence">Influence</label></div>
-<label>Résultat concret voulu</label><textarea id="resultat" rows="2"></textarea>
+<section><h3>3. PRISE DE PAROLE + 4. DEFIS + 5. OBJECTIF</h3>
+<div class="grid2"><div><label>Niveau</label><select id="niv"><option>Débutant</option><option>Moyen</option><option>Bon</option><option>Très bon</option><option>Excellent</option></select></div></div>
+<label>Situations</label><div class="checks" id="situ"><label><input type="checkbox" value="Reunion">Réunion</label><label><input type="checkbox" value="PowerPoint">PowerPoint</label><label><input type="checkbox" value="Conference">Conférence</label><label><input type="checkbox" value="Media">Média</label><label><input type="checkbox" value="Reseaux">Réseaux</label></div>
+<label>Défis</label><div class="checks" id="defis"><label><input type="checkbox" value="Confiance">Confiance</label><label><input type="checkbox" value="Trac">Trac</label><label><input type="checkbox" value="Structure">Structure</label><label><input type="checkbox" value="Eloquence">Éloquence</label><label><input type="checkbox" value="Convaincre">Convaincre</label><label><input type="checkbox" value="Charisme">Charisme</label></div>
+<label>Difficulté majeure</label><textarea id="diffMajeure" rows="2"></textarea>
+<label>Objectifs</label><div class="checks" id="objs"><label><input type="checkbox" value="Confiance">Confiance</label><label><input type="checkbox" value="Leadership">Leadership</label><label><input type="checkbox" value="Charisme">Charisme</label><label><input type="checkbox" value="Influence">Influence</label></div>
+<label>Résultat voulu</label><textarea id="resultat" rows="2"></textarea>
 </section>
 
 <section><h3>6-7-8-9-10. ENGAGEMENT / FORMULE</h3>
 <div class="grid2">
-<div><label>Temps / semaine</label><select id="temps"><option>30 minutes</option><option>1 heure</option><option>2 heures</option><option>Plus de 2h</option></select></div>
+<div><label>Temps / semaine</label><select id="temps"><option>30 min</option><option>1h</option><option>2h</option><option>+2h</option></select></div>
 <div><label>Format</label><select id="format"><option>Présentiel</option><option>En ligne</option><option>Hybride</option></select></div>
-<div><label>Fréquence</label><select id="freq"><option>1 fois / semaine</option><option>2 fois / semaine</option><option>Selon calendrier</option></select></div>
-<div><label>Attente Club</label><select id="attente"><option>Formation</option><option>Coaching perso</option><option>Exercices pratiques</option><option>Networking</option></select></div>
-<div><label>Motivation /10</label><select id="mot"><option>10</option><option>9</option><option>8</option><option>7</option></select></div>
-<div><label>Connu via</label><select id="connu"><option>WhatsApp</option><option>Facebook</option><option>Instagram</option><option>TikTok</option><option>LinkedIn</option><option>Recommandation</option></select></div>
-<div><label>Formule</label><select id="formule"><option>Découverte</option><option>Essentielle</option><option>Premium</option><option>Coaching individuel</option><option>Entreprise</option></select></div>
-<div><label>Budget</label><select id="budget"><option>Moins de 25k FCFA</option><option>25k-50k</option><option>50k-100k</option><option>Plus de 100k</option></select></div>
+<div><label>Motivation /10</label><select id="mot"><option>10</option><option>9</option><option>8</option></select></div>
+<div><label>Connu via</label><select id="connu"><option>WhatsApp</option><option>Facebook</option><option>Instagram</option><option>TikTok</option><option>Recommandation</option></select></div>
+<div><label>Formule</label><select id="formule"><option>Découverte</option><option>Essentielle</option><option>Premium</option><option>Coaching</option></select></div>
+<div><label>Budget</label><select id="budget"><option><25k</option><option>25-50k</option><option>50-100k</option><option>+100k</option></select></div>
 </div>
-<label style="margin-top:8px">Pourquoi maintenant ?</label><textarea id="pourquoi" rows="2"></textarea>
-<label>Thème souhaité / Recommandeur</label><input id="theme" placeholder="Ex: Prise de parole politique / Nom recommandeur">
-<label style="margin-top:8px"><input type="checkbox" required> J'accepte les conditions d'adhésion et d'être contacté</label>
+<label>Pourquoi maintenant? + Thème / Recommandeur</label><div class="grid2"><textarea id="pourquoi" rows="2" placeholder="Pourquoi maintenant?"></textarea><input id="theme" placeholder="Thème souhaité / Recommandeur"></div>
+<label style="margin-top:8px"><input type="checkbox" required> J'accepte les conditions</label>
 </section>
 
-<button type="submit">📄 GÉNÉRER LE PDF ET ENVOYER SUR WHATSAPP</button>
+<button type="submit">📄 GENERER PDF AVEC LOGO + PHOTO + ENVOYER WHATSAPP</button>
 </form>
 </div>
 
 <script>
+let photoBase64="";
+document.getElementById('photoInput').addEventListener('change',e=>{
+ const file=e.target.files[0]; if(!file)return;
+ const r=new FileReader(); r.onload=ev=>{
+  photoBase64=ev.target.result;
+  const p=document.getElementById('preview'); p.src=photoBase64; p.style.display='block';
+ }; r.readAsDataURL(file);
+});
 function getVals(id){return [...document.querySelectorAll(`#${id} input:checked`)].map(c=>c.value).join(', ')}
-document.getElementById('formClub').addEventListener('submit',function(e){
+document.getElementById('formClub').addEventListener('submit',async e=>{
  e.preventDefault();
  const {jsPDF}=window.jspdf; const doc=new jsPDF(); let y=12;
- const add=(t,b=false,sz=10)=>{if(y>275){doc.addPage(); y=12} doc.setFontSize(sz); doc.setFont(undefined,b?'bold':'normal'); const lines=doc.splitTextToSize(t,190); doc.text(lines,10,y); y+=lines.length*5+2}
- doc.setFillColor(15,23,42); doc.rect(0,0,210,18,'F'); doc.setTextColor(251,191,36); doc.setFontSize(13); doc.text("CLUB ART ORATOIRE - FORMULAIRE D'INSCRIPTION",10,11);
- doc.setTextColor(0,0,0);
- add(`Nom: ${nom.value} ${prenom.value} | Naissance: ${dob.value} | Sexe: ${sexe.value}`,true,11);
+ const add=(t,b=false)=>{if(y>275){doc.addPage(); y=12} doc.setFont(undefined,b?'bold':'normal'); const l=doc.splitTextToSize(t,185); doc.text(l,10,y); y+=l.length*5+2}
+ // Logo pour PDF
+ const logoEl=document.querySelector('.logo');
+ const canvas=document.createElement('canvas'); canvas.width=logoEl.naturalWidth; canvas.height=logoEl.naturalHeight;
+ canvas.getContext('2d').drawImage(logoEl,0,0);
+ let logoB64=""; try{logoB64=canvas.toDataURL('image/png')}catch(err){}
+ doc.setFillColor(15,23,42); doc.rect(0,0,210,20,'F');
+ if(logoB64)try{doc.addImage(logoB64,'PNG',6,1,18,18)}catch(err){}
+ doc.setTextColor(251,191,36); doc.setFontSize(12); doc.text("CLUB ART ORATOIRE - FICHE INSCRIPTION",28,12);
+ if(photoBase64)try{doc.addImage(photoBase64,'JPEG',165,22,32,32)}catch(err){}
+ doc.setTextColor(0,0,0); doc.setFontSize(10); y=26;
+ add(`Nom: ${nom.value} ${prenom.value} | Naissance: ${dob.value} | Sexe: ${sexe.value}`,true);
  add(`Tel: ${tel.value} | Email: ${email.value} | Ville: ${ville.value}`);
  add(`Situation: ${getVals('sit')} | Fonction: ${fonc.value} | Secteur: ${sect.value} | Exp: ${exp.value}`);
- add(`Niveau parole: ${niv.value} | Situations: ${getVals('situ')}`);
- add(`Defis: ${getVals('defis')}`,true); add(`Difficulte majeure: ${diffMajeure.value}`);
- add(`Objectifs: ${getVals('objs')}`,true); add(`Resultat concret: ${resultat.value}`);
- add(`Engagement: ${temps.value} / ${format.value} / ${freq.value} | Attente: ${attente.value} | Motivation: ${mot.value}/10`);
- add(`Pourquoi maintenant: ${pourquoi.value}`); add(`Connu via: ${connu.value} | Theme/Recommandeur: ${theme.value}`);
+ add(`Niveau: ${niv.value} | Situations: ${getVals('situ')}`);
+ add(`Defis: ${getVals('defis')}`,true); add(`Difficulte: ${diffMajeure.value}`);
+ add(`Objectifs: ${getVals('objs')}`,true); add(`Resultat: ${resultat.value}`);
+ add(`Engagement: ${temps.value} / ${format.value} | Motivation: ${mot.value}/10 | Connu: ${connu.value}`);
+ add(`Pourquoi: ${pourquoi.value} | Theme/Recom: ${theme.value}`);
  add(`Formule: ${formule.value} | Budget: ${budget.value}`,true);
- y+=5; add(`Date: ${new Date().toLocaleDateString()} | Signature: ${nom.value} ${prenom.value}`,true,9);
- add(`-- Document genere automatiquement - A envoyer sur WhatsApp 0501118431 --`,false,8);
- doc.save(`CLUB_ART_ORATOIRE_${nom.value}_${prenom.value}.pdf`);
- setTimeout(()=>{window.open(`https://wa.me/2250501118431?text=*INSCRIPTION CLUB ART ORATOIRE*%0APDF genere pour ${nom.value} ${prenom.value}%0ATel:${tel.value}%0AJe vous envoie le PDF en piece jointe maintenant.`, '_blank')},800);
+ y+=4; add(`Date: ${new Date().toLocaleDateString()} | Signature: ${nom.value} ${prenom.value} | Club: 0501118431`,true);
+ doc.save(`CLUB_${nom.value}_${prenom.value}.pdf`);
+ setTimeout(()=>{window.open(`https://wa.me/2250501118431?text=*INSCRIPTION CLUB*%0ANom: ${nom.value} ${prenom.value}%0ATel: ${tel.value}%0APDF avec photo et logo genere, je l'envoie en PJ.`, '_blank')},700);
 });
 </script>
 </body>
