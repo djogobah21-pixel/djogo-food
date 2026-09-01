@@ -1,40 +1,88 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Art Oratoire</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Club Art Oratoire - Inscription</title>
 <style>
-*{box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-body{background:linear-gradient(135deg,#0f172a,#1e3a8a);margin:0;padding:15px;display:flex;justify-content:center;}
-.card{background:white;max-width:520px;width:100%;border-radius:20px;padding:28px;}
-label{font-weight:600;font-size:13px;display:block;margin:12px 0 5px;}
-input,select,textarea{width:100%;padding:12px;border:1.5px solid #e2e8f0;border-radius:12px;}
-.photo-box{border:2px dashed #cbd5e1;border-radius:12px;padding:14px;text-align:center;cursor:pointer;}
-.photo-box img{max-width:90px;border-radius:50%;display:none;margin:auto;}
-.btns{display:flex;gap:10px;margin-top:20px;}
-.btn-whatsapp{flex:2;background:#16a34a;color:white;border:none;padding:14px;border-radius:12px;font-weight:bold;}
-.btn-download{flex:1;background:#0f172a;color:white;border:none;padding:14px;border-radius:12px;font-weight:bold;}
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f6f7fb;margin:0;padding:12px;color:#222}
+.container{max-width:900px;margin:auto;background:white;border-radius:16px;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,.08)}
+header{background:#0f172a;color:white;padding:28px;text-align:center}
+header h1{margin:0;font-size:20px}header h2{margin:6px 0;color:#fbbf24;letter-spacing:1px}
+.slogan{font-style:italic;color:#cbd5e1;margin:8px 0} .intro{font-size:13px;color:#e2e8f0;max-width:650px;margin:10px auto 0}
+form{padding:20px}section{border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin-bottom:16px;background:#fcfdff}
+h3{margin:0 0 10px;font-size:14px;color:#0f172a;border-left:4px solid #fbbf24;padding-left:10px;text-transform:uppercase}
+label{font-size:12.5px;font-weight:700;display:block;margin-bottom:3px}
+input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{width:100%;padding:11px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;margin-top:4px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px} .full{grid-column:1/3} .mt{margin-top:12px}
+.checks,.radios{display:flex;flex-wrap:wrap;gap:7px 14px;margin-top:6px}
+.checks label,.radios label{font-weight:400;font-size:12.5px;background:#f1f5f9;padding:6px 10px;border-radius:20px;display:flex;align-items:center;gap:5px}
+.inline{width:130px!important;display:inline-block;margin-left:5px}
+button{width:100%;padding:14px;background:#0f172a;color:#fbbf24;border:none;border-radius:10px;font-size:16px;font-weight:800;cursor:pointer;margin-top:10px}
+button:hover{background:#000} .footer{text-align:center;font-size:11px;color:#888;margin-top:12px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}.full{grid-column:1}}
 </style>
 </head>
 <body>
-<div class="card">
-<h2>🎤 Inscription Art Oratoire</h2>
-<form id="form">
-<label>Nom</label><input id="nom" required>
-<label>Prénoms</label><input id="prenoms" required>
-<label>📷 Photo</label>
-<div class="photo-box" onclick="photo.click()"><span id="photoText">Ajouter photo</span><input type="file" id="photo" accept="image/*" style="display:none" onchange="previewPhoto(this)"><img id="preview"></div>
-<label>💼 Profession</label><select id="profession"><option>Étudiant</option><option>Entrepreneur</option><option>Employé</option></select>
-<label>WhatsApp</label><input id="phone" required>
-<label>💬 Message</label><textarea id="msg"></textarea>
-<div class="btns"><button type="submit" class="btn-whatsapp">✅ WhatsApp</button><button type="button" class="btn-download" onclick="downloadPDF()">📥 PDF</button></div>
+<div class="container">
+<header>
+<h1>FORMULAIRE D'INSCRIPTION</h1>
+<h2>CLUB ART ORATOIRE</h2>
+<p class="slogan">« Prenez la parole. Affirmez votre leadership. Faites la différence. »</p>
+<p class="intro">Bienvenue au Club Art Oratoire, un espace dédié à l’éloquence, la confiance en soi, le leadership et l’impact professionnel.</p>
+</header>
+
+<form>
+<section><h3>1. Informations Personnelles</h3>
+<div class="grid2">
+<div><label>Nom</label><input type="text" required></div>
+<div><label>Prénom(s)</label><input type="text" required></div>
+<div><label>Date de naissance</label><input type="date"></div>
+<div><label>Sexe</label><div class="radios"><label><input type="radio" name="sexe"> Femme</label><label><input type="radio" name="sexe"> Homme</label></div></div>
+<div><label>Téléphone / WhatsApp</label><input type="tel" placeholder="+225..." required></div>
+<div><label>Email</label><input type="email" required></div>
+<div class="full"><label>Ville / Commune</label><input type="text"></div>
+</div>
+</section>
+
+<section><h3>2. Profil Professionnel</h3>
+<label>Situation actuelle</label>
+<div class="checks">
+<label><input type="checkbox"> Étudiant(e)</label><label><input type="checkbox"> Salarié(e)</label><label><input type="checkbox"> Cadre</label><label><input type="checkbox"> Dirigeant(e)</label><label><input type="checkbox"> Entrepreneur(e)</label><label><input type="checkbox"> Manager</label><label><input type="checkbox"> Fonctionnaire</label><label><input type="checkbox"> Politique</label><label><input type="checkbox"> Coach</label><label>Autre <input type="text" class="inline"></label>
+</div>
+<div class="grid2 mt"><div><label>Fonction</label><input type="text"></div><div><label>Secteur</label><input type="text"></div></div>
+<label class="mt">Expérience</label><div class="radios"><label><input type="radio" name="exp"> <2 ans</label><label><input type="radio" name="exp"> 2-5 ans</label><label><input type="radio" name="exp"> 6-10 ans</label><label><input type="radio" name="exp"> 11-15 ans</label><label><input type="radio" name="exp"> +15 ans</label></div>
+</section>
+
+<section><h3>3. Rapport à la prise de parole</h3>
+<label>Niveau actuel</label><div class="radios"><label><input type="radio" name="niv"> Débutant</label><label><input type="radio" name="niv"> Moyen</label><label><input type="radio" name="niv"> Bon</label><label><input type="radio" name="niv"> Très bon</label><label><input type="radio" name="niv"> Excellent</label></div>
+<label class="mt">Situations fréquentes</label><div class="checks"><label><input type="checkbox"> Réunion</label><label><input type="checkbox"> PowerPoint</label><label><input type="checkbox"> Conférence</label><label><input type="checkbox"> Négociation</label><label><input type="checkbox"> Média</label><label><input type="checkbox"> Réseaux sociaux</label><label>Autre <input type="text" class="inline"></label></div>
+</section>
+
+<section><h3>4. Vos Défis</h3>
+<div class="checks"><label><input type="checkbox"> Confiance</label><label><input type="checkbox"> Trac</label><label><input type="checkbox"> Structurer idées</label><label><input type="checkbox"> Éloquence</label><label><input type="checkbox"> Convaincre</label><label><input type="checkbox"> Voix</label><label><input type="checkbox"> Diction</label><label><input type="checkbox"> Captiver</label><label><input type="checkbox"> Improviser</label><label><input type="checkbox"> Charisme</label></div>
+<label class="mt">LA difficulté à résoudre absolument ?</label><textarea rows="2"></textarea>
+</section>
+
+<section><h3>5. Objectif & Engagement</h3>
+<div class="checks"><label><input type="checkbox"> Confiance</label><label><input type="checkbox"> Leadership</label><label><input type="checkbox"> Convaincre</label><label><input type="checkbox"> Charisme</label><label><input type="checkbox"> Performance pro</label><label><input type="checkbox"> Influence</label></div>
+<label class="mt">Résultat concret souhaité ?</label><textarea rows="2"></textarea>
+<div class="grid2 mt"><div><label>Temps / semaine</label><select><option>30 min</option><option>1h</option><option>2h</option><option>+2h</option></select></div><div><label>Format</label><select><option>Présentiel</option><option>En ligne</option><option>Hybride</option></select></div></div>
+<label class="mt">Motivation /10</label><input type="range" min="1" max="10" value="8" style="width:100%">
+<label class="mt">Comment connu ?</label><div class="checks"><label><input type="checkbox"> WhatsApp</label><label><input type="checkbox"> TikTok</label><label><input type="checkbox"> Facebook</label><label><input type="checkbox"> Insta</label><label><input type="checkbox"> LinkedIn</label><label><input type="checkbox"> Recommandation</label></div>
+<label class="mt">Formule</label><div class="radios"><label><input type="radio" name="f"> Découverte</label><label><input type="radio" name="f"> Essentielle</label><label><input type="radio" name="f"> Premium</label><label><input type="radio" name="f"> Coaching</label><label><input type="radio" name="f"> Entreprise</label></div>
+<label class="mt">Budget</label><div class="radios"><label><input type="radio" name="b"> <25k</label><label><input type="radio" name="b"> 25-50k</label><label><input type="radio" name="b"> 50-100k</label><label><input type="radio" name="b"> +100k FCFA</label></div>
+</section>
+
+<section><h3>11. Engagement</h3>
+<label><input type="checkbox" required> J’accepte les conditions d’adhésion</label>
+<label><input type="checkbox" required> J’accepte d’être contacté(e)</label>
+<div class="grid2 mt"><div><label>Nom / Signature</label><input type="text"></div><div><label>Date</label><input type="date"></div></div>
+</section>
+
+<button type="submit">Envoyer mon inscription</button>
+<p class="footer">CLUB ART ORATOIRE - Votre voix est un outil de leadership.</p>
 </form>
 </div>
-<script>
-let photoBase64="";function previewPhoto(i){let r=new FileReader();r.onload=e=>{photoBase64=e.target.result;preview.src=photoBase64;preview.style.display='block';photoText.innerText='Photo ajoutée ✓'};r.readAsDataURL(i.files[0]);}
-form.addEventListener('submit',e=>{e.preventDefault();let n=`*ART ORATOIRE*%0ANom:${nom.value}%0AProfession:${profession.value}%0ATel:${phone.value}%0AMsg:${msg.value}`;window.open(`https://wa.me/2250501118431?text=${n}`,'_blank');});
-function downloadPDF(){const{jsPDF}=window.jspdf;let doc=new jsPDF();doc.setFillColor(15,23,42);doc.rect(0,0,210,35,'F');doc.setTextColor(255);doc.text("Inscription Art Oratoire",20,20);doc.setTextColor(0);let y=45;if(photoBase64)try{doc.addImage(photoBase64,'JPEG',150,40,40,40)}catch{};doc.text(`Nom: ${nom.value} ${prenoms.value}`,20,y);y+=10;doc.text(`Profession: ${profession.value}`,20,y);y+=10;doc.text(`Tel: ${phone.value}`,20,y);y+=10;doc.text(`Message: ${msg.value}`,20,y);doc.save(`Inscription_${nom.value}.pdf`);}
-</script>
 </body>
 </html>
